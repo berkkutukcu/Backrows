@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Etkinlik İsteği — Katılımcı{% endblock %}
+{% block nav %}{% include "katilimci/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Etkinlik İsteği Oluştur</h1>
+    {% if mesaj %}<p class="muted">{{ mesaj }}</p>{% endif %}
+    {% if hata %}<p class="error">{{ hata }}</p>{% endif %}
+
+    {% if benim %}
+    <form method="post" action="/katilimci/event-request" class="grid-form">
+        <label>Fuar
+            <select name="fuar_id" required>
+                {% for f in benim %}
+                    <option value="{{ f['id'] }}">{{ f["ad"] }} ({{ f["tarih"] }})</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Saat
+            <select name="saat" required>
+                {% for s in saatler %}
+                    <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <div><button type="submit">Etkinlik İsteği Oluştur</button></div>
+    </form>
+    {% else %}
+    <p class="error">Önce bir fuara katılmalısınız. <a href="/katilimci/fairs">Fuar Kayıt</a>.</p>
+    {% endif %}
+
+    <h2>Taleplerim</h2>
+    {% if istekler %}
+    <table>
+        <thead><tr><th>Fuar</th><th>Saat</th><th>Durum</th></tr></thead>
+        <tbody>
+        {% for e in istekler %}
+            <tr>
+                <td>{{ e["fuar_adi"] }}</td>
+                <td>{{ e["saat"] }}</td>
+                <td>
+                    {% if e["status"] == "bekliyor" %}
+                        <span class="badge-pending">Bekliyor</span>
+                    {% else %}
+                        <span class="badge-approved">Onaylandı</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Henüz bir talebiniz yok.</p>
+    {% endif %}
+</section>
+{% endblock %}

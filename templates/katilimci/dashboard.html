@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Katılımcı — BackRows{% endblock %}
+{% block nav %}{% include "katilimci/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Katılımcı Paneli</h1>
+    <p>Hoş geldiniz, <strong>{{ user["ad"] }} {{ user["soyad"] }}</strong>.</p>
+    <ul class="dashboard-links">
+        <li><a href="/katilimci/fairs">Fuar Kayıt</a> — fuarları görüntüle ve katıl.</li>
+        <li><a href="/katilimci/event-request">Etkinlik İsteği</a> — katıldığın fuarda saat talep et.</li>
+        <li><a href="/katilimci/qr">QR Göster</a> — kendi QR kodun.</li>
+    </ul>
+</section>
+{% endblock %}

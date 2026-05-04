@@ -137,6 +137,23 @@ button.danger:hover { background: #8b1d17; }
     font-size: 14px;
 }
 
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+@media (max-width: 720px) {
+    .two-col { grid-template-columns: 1fr; }
+}
+
+.badge-pending, .badge-approved {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+.badge-pending { background: #fff0c2; color: #6d4b00; }
+.badge-approved { background: #c9f0cf; color: #0f5322; }
+
 .code-box {
     background: #f0f8f0;
     border: 1px dashed var(--primary);
