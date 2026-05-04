@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Fuarlar — Admin{% endblock %}
+{% block nav %}{% include "admin/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Fuar Yönetimi</h1>
+    {% if hata %}<p class="error">{{ hata }}</p>{% endif %}
+
+    <h2>Yeni Fuar</h2>
+    <form method="post" action="/admin/fairs" class="grid-form">
+        <label>Fuar Adı<input type="text" name="ad" required></label>
+        <label>Tarih (GG/AA/YYYY)<input type="text" name="tarih" placeholder="01/12/2026" required></label>
+        <div><button type="submit">Oluştur</button></div>
+    </form>
+
+    <h2>Mevcut Fuarlar</h2>
+    <table>
+        <thead><tr><th>ID</th><th>Ad</th><th>Tarih</th></tr></thead>
+        <tbody>
+        {% for f in fuarlar %}
+            <tr><td>{{ f["id"] }}</td><td>{{ f["ad"] }}</td><td>{{ f["tarih"] }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

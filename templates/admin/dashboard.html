@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Admin — BackRows{% endblock %}
+{% block nav %}
+    <a href="/admin">Panel</a>
+    <a href="/admin/users">Kullanıcılar</a>
+    <a href="/admin/fairs">Fuarlar</a>
+    <a href="/admin/events">Etkinlik Onay</a>
+    <a href="/admin/announcements">Duyurular</a>
+    <a href="/admin/qr">QR Göster</a>
+    <a href="/logout">Çıkış</a>
+{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Yönetici Paneli</h1>
+    <p>Hoş geldiniz, <strong>{{ user["ad"] }} {{ user["soyad"] }}</strong>.</p>
+    <ul class="dashboard-links">
+        <li><a href="/admin/users">Kullanıcı Yönetimi</a> — admin, katılımcı ve ziyaretçi hesapları.</li>
+        <li><a href="/admin/fairs">Fuar Yönetimi</a> — yeni fuar oluştur, listele.</li>
+        <li><a href="/admin/events">Etkinlik Onay</a> — katılımcı taleplerini onayla.</li>
+        <li><a href="/admin/announcements">Duyurular</a> — giriş ekranı slideshow görselleri (5 slot).</li>
+        <li><a href="/admin/qr">QR Göster</a> — kendi QR kodunuz.</li>
+    </ul>
+</section>
+{% endblock %}

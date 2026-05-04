@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Etkinlik Onay — Admin{% endblock %}
+{% block nav %}{% include "admin/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Etkinlik Onay</h1>
+
+    <h2>Bekleyen Etkinlikler</h2>
+    {% if bekleyen %}
+    <table>
+        <thead><tr><th>Fuar</th><th>Saat</th><th>Konuşmacı</th><th></th></tr></thead>
+        <tbody>
+        {% for e in bekleyen %}
+            <tr>
+                <td>{{ e["fuar_adi"] }}</td>
+                <td>{{ e["saat"] }}</td>
+                <td>{{ e["konusmaci"] }}</td>
+                <td>
+                    <form method="post" action="/admin/events/{{ e['id'] }}/approve">
+                        <button type="submit">Onayla</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Bekleyen etkinlik yok.</p>
+    {% endif %}
+
+    <h2>Onaylı Etkinlikler</h2>
+    {% if onayli %}
+    <table>
+        <thead><tr><th>Fuar</th><th>Saat</th><th>Konuşmacı</th></tr></thead>
+        <tbody>
+        {% for e in onayli %}
+            <tr><td>{{ e["fuar_adi"] }}</td><td>{{ e["saat"] }}</td><td>{{ e["konusmaci"] }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Henüz onaylı etkinlik yok.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Duyurular — Admin{% endblock %}
+{% block nav %}{% include "admin/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Duyuru Görselleri</h1>
+    <p class="muted">Giriş ekranında slideshow olarak gösterilecek görseller. Her slot için 400×400 PNG yükleyin.</p>
+    {% if mesaj %}<p class="muted">{{ mesaj }}</p>{% endif %}
+    {% if hata %}<p class="error">{{ hata }}</p>{% endif %}
+
+    <div class="slot-grid">
+        {% for slot in slots %}
+        <div class="slot">
+            <h3>Slot {{ slot.index }}</h3>
+            {% if slot.exists %}
+                <img src="/uploads/announcements/DuyuruFoto{{ slot.index }}.png?v={{ loop.index }}" width="160" height="160" alt="Duyuru {{ slot.index }}">
+            {% else %}
+                <div class="slot-empty">(boş)</div>
+            {% endif %}
+            <form method="post" action="/admin/announcements/{{ slot.index }}" enctype="multipart/form-data">
+                <input type="file" name="dosya" accept="image/png" required>
+                <button type="submit">Yükle</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
