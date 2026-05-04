@@ -5,7 +5,12 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
-from ..config import EMAIL_CODE_TTL_SECONDS, TEMPLATES_DIR
+from ..config import (
+    ANNOUNCEMENT_SLOTS,
+    ANNOUNCEMENTS_DIR,
+    EMAIL_CODE_TTL_SECONDS,
+    TEMPLATES_DIR,
+)
 from ..dependencies import current_user
 from ..repository import (
     create_user,
@@ -42,12 +47,24 @@ def _redirect_for_role(rol: str) -> str:
     return _ROL_DASHBOARD.get(rol, "/")
 
 
+def _announcement_images() -> list[str]:
+    urls = []
+    for i in range(1, ANNOUNCEMENT_SLOTS + 1):
+        if (ANNOUNCEMENTS_DIR / f"DuyuruFoto{i}.png").exists():
+            urls.append(f"/uploads/announcements/DuyuruFoto{i}.png")
+    return urls
+
+
 @router.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     user = current_user(request)
     if user:
         return RedirectResponse(_redirect_for_role(user["rol"]), status_code=303)
-    return templates.TemplateResponse(request, "login.html", {"hata": None})
+    return templates.TemplateResponse(
+        request,
+        "login.html",
+        {"hata": None, "duyurular": _announcement_images()},
+    )
 
 
 @router.post("/login")
@@ -61,7 +78,10 @@ async def login(
         return templates.TemplateResponse(
             request,
             "login.html",
-            {"hata": "E-posta veya şifre hatalı."},
+            {
+                "hata": "E-posta veya şifre hatalı.",
+                "duyurular": _announcement_images(),
+            },
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
     request.session["user_id"] = user["id"]
@@ -205,6 +225,7 @@ async def verify_email(
         {
             "hata": None,
             "mesaj": "Kayıt tamamlandı. Giriş yapabilirsiniz.",
+            "duyurular": _announcement_images(),
         },
     )
 
