@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Ziyaretçi — BackRows{% endblock %}
+{% block nav %}{% include "ziyaretci/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Ziyaretçi Paneli</h1>
+    <p>Hoş geldiniz, <strong>{{ user["ad"] }} {{ user["soyad"] }}</strong>.</p>
+    <ul class="dashboard-links">
+        <li><a href="/ziyaretci/fairs">Fuar Kayıt</a> — fuarları görüntüle ve katıl.</li>
+        <li><a href="/ziyaretci/events">Etkinlikler</a> — katıldığın fuarın etkinlik takvimini gör.</li>
+        <li><a href="/ziyaretci/qr">QR Göster</a> — kendi QR kodun.</li>
+    </ul>
+</section>
+{% endblock %}

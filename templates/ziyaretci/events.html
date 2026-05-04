@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Etkinlikler — Ziyaretçi{% endblock %}
+{% block nav %}{% include "ziyaretci/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>Etkinlik Takvimi</h1>
+
+    {% if benim %}
+    <form method="get" action="/ziyaretci/events" class="grid-form">
+        <label>Fuar Seçin
+            <select name="fuar_id" onchange="this.form.submit()">
+                <option value="">— Fuar seçin —</option>
+                {% for f in benim %}
+                    <option value="{{ f['id'] }}" {% if fuar_id == f['id'] %}selected{% endif %}>{{ f["ad"] }} ({{ f["tarih"] }})</option>
+                {% endfor %}
+            </select>
+        </label>
+    </form>
+    {% else %}
+    <p class="error">Önce bir fuara katılmalısınız. <a href="/ziyaretci/fairs">Fuar Kayıt</a>.</p>
+    {% endif %}
+
+    {% if secili_fuar %}
+        <h2>{{ secili_fuar["ad"] }} — {{ secili_fuar["tarih"] }}</h2>
+        {% if etkinlikler %}
+        <table>
+            <thead><tr><th>Saat</th><th>Konuşmacı</th></tr></thead>
+            <tbody>
+            {% for e in etkinlikler %}
+                <tr><td>{{ e["saat"] }}</td><td>{{ e["konusmaci"] }}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="muted">Bu fuarda henüz onaylı etkinlik yok.</p>
+        {% endif %}
+    {% endif %}
+</section>
+{% endblock %}

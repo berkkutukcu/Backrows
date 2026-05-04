@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}QR Göster — Ziyaretçi{% endblock %}
+{% block nav %}{% include "ziyaretci/_nav.html" %}{% endblock %}
+{% block content %}
+<section class="card">
+    <h1>QR Kodunuz</h1>
+    <p class="muted">Bu QR kodu başka bir cihazın QR giriş sayfasına okutarak hesabınıza girebilirsiniz.</p>
+    <img src="/qr/{{ token }}.png" alt="QR kod" width="280" height="280">
+    <p class="muted">Token: <code>{{ token }}</code></p>
+</section>
+{% endblock %}

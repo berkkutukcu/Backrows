@@ -6,7 +6,7 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from .config import ANNOUNCEMENTS_DIR, SECRET_KEY, STATIC_DIR
 from .db import init_db
-from .routers import admin, auth, katilimci
+from .routers import admin, auth, katilimci, ziyaretci
 from .seed import seed_if_empty
 
 
@@ -29,3 +29,4 @@ app.mount(
 app.include_router(auth.router)
 app.include_router(admin.router)
 app.include_router(katilimci.router)
+app.include_router(ziyaretci.router)

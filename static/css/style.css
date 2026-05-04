@@ -126,6 +126,9 @@ th { background: #f7faf7; }
 button.danger { background: var(--danger); }
 button.danger:hover { background: #8b1d17; }
 
+.hover-grow { transition: transform 0.15s ease; }
+.hover-grow:hover { transform: scale(1.1); }
+
 .auth-card { max-width: 480px; margin: 40px auto; }
 .auth-card .form-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
 .auth-card .btn-secondary {
