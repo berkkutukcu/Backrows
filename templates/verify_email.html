@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}E-posta Doğrulama — BackRows{% endblock %}
+{% block nav %}
+    <a href="/">Giriş Yap</a>
+{% endblock %}
+{% block content %}
+<section class="card auth-card">
+    <h1>E-posta Doğrulama</h1>
+    <p class="muted">
+        <strong>{{ eposta }}</strong> adresine doğrulama kodu gönderildi.
+        (Bu sürümde gerçek e-posta gönderilmez — kod ekranda gösterilir.)
+    </p>
+    {% if kod %}
+        <p class="code-box">Doğrulama kodunuz: <strong>{{ kod }}</strong></p>
+    {% endif %}
+    {% if hata %}<p class="error">{{ hata }}</p>{% endif %}
+    <form method="post" action="/register/verify">
+        <input type="hidden" name="eposta" value="{{ eposta }}">
+        <label for="kod">4 Haneli Kod</label>
+        <input type="text" id="kod" name="kod" inputmode="numeric" maxlength="4" required>
+        <div class="form-actions">
+            <button type="submit">Doğrula</button>
+            <a class="btn-secondary" href="/register">Geri</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
